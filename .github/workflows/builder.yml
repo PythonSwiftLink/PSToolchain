@@ -28,7 +28,7 @@ jobs:
         run: | 
               swift build --package-path pstoolchain -c release --disable-sandbox 
               mkdir release
-              cp -rf .build/release/PSToolchain release/PSToolchain
+              cp -rf PSToolchain/.build/release/PSToolchain release/PSToolchain
               tar -C ./release/ -czvf ./PSToolchain.tar.gz ./    
       
       - name: Set SHA256
