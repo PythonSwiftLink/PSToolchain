@@ -26,10 +26,22 @@ jobs:
       
       - name: Build Release    
         run: | 
-              swift build --package-path pstoolchain -c release --disable-sandbox 
+              # swift build --package-path pstoolchain -c release --disable-sandbox --arch x86_64
+              # swift build --package-path pstoolchain -c release --disable-sandbox --arch arm64
+              # mkdir release
+              # cp -rf PSToolchain/.build/release/PSToolchain release/PSToolchain
+              # tar -C ./release/ -czvf ./PSToolchain.tar.gz ./
+
+              swift build --package-path pstoolchain -c release --disable-sandbox --arch x86_64 
+              swift build --package-path pstoolchain -c release --disable-sandbox --arch arm64
+              X64BIN="PSToolchain/.build/x86_64-apple-macosx/release/PSToolchain"
+              ARMBIN="PSToolchain/.build/arm64-apple-macosx/release/PSToolchain"
               mkdir release
-              cp -rf PSToolchain/.build/release/PSToolchain release/PSToolchain
-              tar -C ./release/ -czvf ./PSToolchain.tar.gz ./    
+              lipo -create $X64BIN $ARMBIN -output release/swiftonize
+
+              tar -C ./release/ -czvf ./PSToolchain.tar.gz ./  
+                  
+              
       
       - name: Set SHA256
         id: shasum
