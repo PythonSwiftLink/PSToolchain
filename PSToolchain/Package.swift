@@ -13,9 +13,9 @@ let package = Package(
 		.package(path: "../packages/SwiftPackageGen"),
 		.package(url: "https://github.com/kylef/PathKit", .upToNextMajor(from: "1.0.1")),
 		.package(url: "https://github.com/PythonSwiftLink/PythonSwiftLink", branch: "master"),
-		
+		.package(url: "https://github.com/PythonSwiftLink/Swiftonize", from: .init(0, 0, 1)),
 		// temporary
-		.package(path: "/Volumes/CodeSSD/GitHub/Swiftonize"),
+		//.package(path: "/Volumes/CodeSSD/GitHub/Swiftonize"),
 		.package(path: "../packages/PSProjectGenerator")
     ],
     targets: [
