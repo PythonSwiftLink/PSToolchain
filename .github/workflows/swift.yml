@@ -17,6 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build
-      run: swift swift build --package-path pstoolchain -v
+      run: swift build --package-path pstoolchain -v
     #- name: Run tests
       #run: swift test -v
