@@ -19,11 +19,26 @@ extension PSToolchain {
 		
 		struct Build: AsyncParsableCommand {
 			
+			@Argument var source: Path
+			@Argument var destination: Path
+			@Option var site: Path?
 			
 			
 			func run() async throws {
 				try launchPython()
+				let wrappers = try SourceFilter(root: source)
 				
+				for file in wrappers.sources {
+					
+					switch file {
+					case .pyi(let path):
+						try await build_wrapper(src: path, dst: file.swiftFile(destination), site: site)
+					case .py(let path):
+						try await build_wrapper(src: path, dst: file.swiftFile(destination), site: site)
+					case .both(_, let pyi):
+						try await build_wrapper(src: pyi, dst: file.swiftFile(destination), site: site)
+					}
+				}
 			}
 		}
 		
