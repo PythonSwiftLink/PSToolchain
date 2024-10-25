@@ -14,10 +14,14 @@ let package = Package(
 		.package(url: "https://github.com/kylef/PathKit", .upToNextMajor(from: "1.0.1")),
 		.package(url: "https://github.com/PythonSwiftLink/PythonSwiftLink", branch: "master"),
 
-		.package(url: "https://github.com/PythonSwiftLink/Swiftonize.git", from: .init(0, 0, 0)),
+		//.package(url: "https://github.com/PythonSwiftLink/Swiftonize.git", from: .init(0, 0, 0)),
 		// temporary
-		//.package(path: "/Volumes/CodeSSD/GitHub/Swiftonize"),
-		.package(path: "../packages/PSProjectGenerator")
+		.package(path: "/Volumes/CodeSSD/GitHub/Swiftonize"),
+		//.package(path: "/Volumes/CodeSSD/PSL-development/PyAst"),
+		.package(path: "../packages/PSProjectGenerator"),
+		.package(path: "../packages/PythonFiles"),
+		.package(path: "../packages/FakePip"),
+		.package(path: "../packages/AstExporter")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -29,11 +33,15 @@ let package = Package(
 				.product(name: "PathKit", package: "PathKit"),
 				.product(name: "PySwiftCore", package: "PythonSwiftLink"),
 				.product(name: "PySwiftObject", package: "PythonSwiftLink"),
+				.product(name: "PyDictionary", package: "PythonSwiftLink"),
 				.product(name: "SwiftonizeNew", package: "Swiftonize"),
 				.product(name: "SwiftPackage", package: "SwiftPackageGen"),
 				.product(name: "GeneratePackage", package: "SwiftPackageGen"),
 				
-				.product(name: "PSProjectGen", package: "PSProjectGenerator")
+				.product(name: "PSProjectGen", package: "PSProjectGenerator"),
+				.product(name: "FakePip", package: "FakePip"),
+				.product(name: "PythonFiles", package: "PythonFiles"),
+				.product(name: "AstExporter", package: "AstExporter")
             ]
         ),
     ]
