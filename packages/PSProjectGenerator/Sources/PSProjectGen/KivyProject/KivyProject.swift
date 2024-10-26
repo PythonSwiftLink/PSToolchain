@@ -233,7 +233,7 @@ public class KivyProject: PSProjectProtocol {
 		var output: [String : ProjectSpec.SwiftPackage] = [
 			"SwiftonizePlugin": .remote(
 				url: "https://github.com/pythonswiftlink/SwiftonizePlugin",
-				versionRequirement: .branch("development")
+				versionRequirement: .upToNextMajorVersion("0.0.2")
 			),
 			"PythonCore": .remote(
 				url: "https://github.com/kivyswiftlink/PythonCore",
