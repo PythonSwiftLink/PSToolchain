@@ -24,6 +24,7 @@ class Pstoolchain < Formula
 
   def install
     bin.install "PSToolchain"
+    bin.install "PythonFiles_PythonFiles.bundle"
     end
 
   test do
@@ -44,7 +45,8 @@ class Pstoolchain{version_name} < Formula
   license ""
 
   def install
-    bin.install "PSProject"
+    bin.install "PSToolchain"
+    bin.install "PythonFiles_PythonFiles.bundle"
     end
 
   test do
@@ -65,8 +67,8 @@ formula_lastest = template0.format(version=version, version_name="", sha=sha)
 
 formula_version = template0.format(version=version, version_name=f'AT{version.replace(".","")}', sha=sha)
 
-with open("homebrew_formula/psproject.rb", "w") as f:
+with open("homebrew_formula/pstoolchain.rb", "w") as f:
     f.write(formula_lastest)
 
-with open(f"homebrew_formula/psproject@{version}.rb", "w") as f:
+with open(f"homebrew_formula/pstoolchain@{version}.rb", "w") as f:
     f.write(formula_version)

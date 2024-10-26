@@ -3,7 +3,7 @@
 import Foundation
 import PySwiftCore
 import PythonCore
-
+import PythonFiles
 
 func DEBUG_PRINT(_ items: Any..., separator: String = " ", terminator: String = "\n") {
 #if DEBUG
@@ -101,12 +101,12 @@ class PythonHandler {
         status = PyWideStringList_Append(&config.module_search_paths, wtmp_str)
         pyCheckStatus(status: &status, config: &config, msg: "Unable to set stdlib binary module path")
         PyMem_RawFree(wtmp_str)
-        
+		
         
         // Add the app_packages path
         //path = "\(resourcePath)/app_packages"
         for package in app_packages {
-            if debug { DEBUG_PRINT("- \(package)") }
+            print("- \(package)") 
             wtmp_str = package.withCString { Py_DecodeLocale($0, nil) }
             status = PyWideStringList_Append(&config.module_search_paths, wtmp_str)
             pyCheckStatus(status: &status, config: &config, msg: "Unable to set app packages path")

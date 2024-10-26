@@ -38,7 +38,7 @@ jobs:
               ARMBIN="PSToolchain/.build/arm64-apple-macosx/release/PSToolchain"
               mkdir release
               lipo -create $X64BIN $ARMBIN -output release/swiftonize
-
+              cp -rf PSToolchain/.build/x86_64-apple-macosx/release/PythonFiles_PythonFiles.bundle ./release/
               tar -C ./release/ -czvf ./PSToolchain.tar.gz ./  
                   
               
