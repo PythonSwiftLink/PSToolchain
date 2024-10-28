@@ -6,8 +6,6 @@ name: Homebrew Builder
 on:
   push:
     tags: '*'
-    branches:
-      - master
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -15,7 +13,6 @@ on:
 jobs:
   mainjob1:
     runs-on: macos-13
-    if: github.ref == 'refs/heads/master'
     outputs:
       sha: ${{ steps.shasum.outputs.var }}
       version: ${{ steps.version.outputs.var }}
