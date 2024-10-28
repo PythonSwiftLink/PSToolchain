@@ -24,7 +24,7 @@ class Pstoolchain < Formula
 
   def install
     bin.install "PSToolchain"
-    bin.install "PythonFiles_PythonFiles.bundle"
+    #bin.install "PythonFiles_PythonFiles.bundle"
     end
 
   test do
@@ -46,7 +46,7 @@ class Pstoolchain{version_name} < Formula
 
   def install
     bin.install "PSToolchain"
-    bin.install "PythonFiles_PythonFiles.bundle"
+    #bin.install "PythonFiles_PythonFiles.bundle"
     end
 
   test do
