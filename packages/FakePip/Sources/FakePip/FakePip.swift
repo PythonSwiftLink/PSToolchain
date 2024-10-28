@@ -123,3 +123,43 @@ public func venv_dump(wrapper: Path) throws -> PyPointer {
 	
 	return ast_module.pyPointer
 }
+
+import PyCallable
+import PyEncode
+
+fileprivate func withGIL<O: PyEncodable>(handle: @escaping ()->O ) -> O {
+	let gil = PyGILState_Ensure()
+	let result = handle()
+	PyGILState_Release(gil)
+	return result
+}
+
+public class Decompiler {
+	
+	init() {
+		let g = PyDict_New()!
+		PyRun_String(
+			py_decompiler,
+			Py_file_input,
+			g,
+			g
+		)
+		module = g
+		_decompile = PyDict_GetItemString(module, "decompile")!
+	}
+	private let module: PyPointer
+	private let _decompile: PyPointer
+	public static let shared = Decompiler()
+//	? = {
+//		return PyDict_GetItemString(module, "decompile")!
+//	}()
+	
+	
+	public func decompile(ast: PyEncodable) throws -> String {
+		try PythonCallWithGil(call: _decompile, ast)
+	}
+	deinit {
+		module.decref()
+		_decompile.decref()
+	}
+}

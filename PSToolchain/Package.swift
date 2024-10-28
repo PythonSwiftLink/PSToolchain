@@ -19,7 +19,7 @@ let package = Package(
 		//.package(path: "/Volumes/CodeSSD/GitHub/Swiftonize"),
 		//.package(path: "/Volumes/CodeSSD/PSL-development/PyAst"),
 		.package(path: "../packages/PSProjectGenerator"),
-		.package(path: "../packages/PythonFiles"),
+		//.package(path: "../packages/PythonFiles"),
 		.package(path: "../packages/FakePip"),
 		.package(path: "../packages/AstExporter")
     ],
@@ -40,7 +40,7 @@ let package = Package(
 				
 				.product(name: "PSProjectGen", package: "PSProjectGenerator"),
 				.product(name: "FakePip", package: "FakePip"),
-				.product(name: "PythonFiles", package: "PythonFiles"),
+				//.product(name: "PythonFiles", package: "PythonFiles"),
 				.product(name: "AstExporter", package: "AstExporter")
             ]
         ),
