@@ -22,25 +22,22 @@ jobs:
       
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Build Release    
-        run: | 
-              # swift build --package-path pstoolchain -c release --disable-sandbox --arch x86_64
-              # swift build --package-path pstoolchain -c release --disable-sandbox --arch arm64
-              # mkdir release
-              # cp -rf PSToolchain/.build/release/PSToolchain release/PSToolchain
-              # tar -C ./release/ -czvf ./PSToolchain.tar.gz ./
 
-              swift build --package-path pstoolchain -c release --disable-sandbox --arch x86_64 
-              swift build --package-path pstoolchain -c release --disable-sandbox --arch arm64
+      - name: Build x86_64    
+        run: swift build --package-path pstoolchain -c release --disable-sandbox --arch x86_64 
+      
+      - name: Build arm64    
+        run: swift build --package-path pstoolchain -c release --disable-sandbox --arch arm64
+
+
+      - name: Pack Release    
+        run: | 
               X64BIN="PSToolchain/.build/x86_64-apple-macosx/release/PSToolchain"
               ARMBIN="PSToolchain/.build/arm64-apple-macosx/release/PSToolchain"
               mkdir release
               lipo -create $X64BIN $ARMBIN -output release/PSToolchain
               cp -rf PSToolchain/.build/x86_64-apple-macosx/release/PythonFiles_PythonFiles.bundle ./release/
-              tar -C ./release/ -czvf ./PSToolchain.tar.gz ./  
-                  
-              
+              tar -C ./release/ -czvf ./PSToolchain.tar.gz ./
       
       - name: Set SHA256
         id: shasum
