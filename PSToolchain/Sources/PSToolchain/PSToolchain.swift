@@ -28,6 +28,7 @@ struct PSToolchain: AsyncParsableCommand {
 	}
 	
 	static var configuration: CommandConfiguration = .init(
+		version: "0.0.2",
 		subcommands: [
 			Swiftonize.self,
 			Package.self,
