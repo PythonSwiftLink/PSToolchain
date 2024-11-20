@@ -37,10 +37,22 @@ struct PSToolchain: AsyncParsableCommand {
 	
 }
 
-
+import Foundation
 
 extension PathKit.Path: ExpressibleByArgument {
 	public init?(argument: String) {
 		self.init(argument)
 	}
+	
+	static let app_path: Self? = {
+		guard let _app_path = Foundation.ProcessInfo.processInfo.arguments.first else { return nil }
+		var app_path = Path(_app_path)
+		
+		if app_path.isSymlink {
+			app_path = try! app_path.symlinkDestination()
+		}
+		print(app_path)
+		return app_path.parent()
+	}()
+	
 }

@@ -160,13 +160,15 @@ public class KivyProject: PSProjectProtocol {
 	let resourcesPath: Path
 	let pythonLibPath: Path
 	var projectSpecData: SpecData?
+	let app_path: Path
 	
-	public init(name: String, py_src: Path?, requirements: Path?, projectSpec: Path?, workingDir: Path) async throws {
+	public init(name: String, py_src: Path?, requirements: Path?, projectSpec: Path?, workingDir: Path, app_path: Path) async throws {
 		self.name = name
 		self.workingDir = workingDir
 		let resources = workingDir + "Resources"
 		self.resourcesPath = resources
 		self.pythonLibPath = resources + "lib"
+		self.app_path = app_path
 		self.local_py_src = py_src == nil
 		self.py_src = py_src ?? "py_src"
 		self.requirements = requirements
@@ -178,7 +180,8 @@ public class KivyProject: PSProjectProtocol {
 			//dist_lib: (try await Path.distLib(workingDir: workingDir)).string,
 			dist_lib: (workingDir + "dist_lib"),
 			projectSpec: projectSpec,
-			workingDir: workingDir
+			workingDir: workingDir,
+			app_path: app_path
 		)
 		_targets = [
 			
@@ -426,7 +429,17 @@ public class KivyProject: PSProjectProtocol {
 		//try? (current + "dist_lib/iphoneos").mkpath()
 		//try? (current + "dist_lib/iphonesimulator").mkpath()
 		//try? (current + "Resources").mkdir()
-		let downloadsPath = Path(Bundle.module.path(forResource: "downloads", ofType: "yml")!)
+		//let downloadsPath = Path(Bundle.module.path(forResource: "downloads", ofType: "yml")!)
+		
+		guard 
+			let psp_bundle = Bundle(path: (app_path + "PythonSwiftProject_PSProjectGen.bundle").string ),
+			let _downloads = psp_bundle.path(forResource: "downloads", ofType: "yml")
+		else {
+			print("could not locate \((app_path + "PythonSwiftProject_PSProjectGen.bundle").string)")
+			return
+		}
+		
+		let downloadsPath = Path(_downloads)
 		let downloader = try YAMLDecoder().decode([String:AssetsDownloader].self, from: downloadsPath.read())
 		
 		for (rootKey,asset) in downloader {

@@ -29,12 +29,16 @@ public class KivyProjectTarget: PSProjTargetProtocol {
 	let workingDir: Path
 	let resourcesPath: Path
 	let pythonLibPath: Path
+	let app_path: Path
 	
 	weak var project: KivyProject?
 	
-	public init(name: String, py_src: Path, dist_lib: Path, projectSpec: Path?, workingDir: Path) async throws {
+	
+	
+	public init(name: String, py_src: Path, dist_lib: Path, projectSpec: Path?, workingDir: Path, app_path: Path) async throws {
 		self.name = name
 		self.workingDir = workingDir
+		self.app_path = app_path
 		let resources = workingDir + "Resources"
 		self.resourcesPath = resources
 		self.pythonLibPath = resources + "lib"
@@ -131,9 +135,15 @@ public class KivyProjectTarget: PSProjTargetProtocol {
 			"UILaunchStoryboardName": "Launch Screen",
 			"UIRequiresFullScreen": true
 		]
-		if let projectPkeys = Bundle.module.url(forResource: "project_plist_keys", withExtension: "yml") {
-			try loadBasePlistKeys(from: projectPkeys, keys: &mainkeys)
+		if
+			let psp_bundle = Bundle(path: (app_path + "PythonSwiftProject_PSProjectGen.bundle").string ),
+			let _project_plist_keys = psp_bundle.path(forResource: "downloads", ofType: "yml")
+		{
+			try loadBasePlistKeys(from: .init(filePath: _project_plist_keys), keys: &mainkeys)
 		}
+//		if let projectPkeys = Bundle.module.url(forResource: "project_plist_keys", withExtension: "yml") {
+//			try loadBasePlistKeys(from: projectPkeys, keys: &mainkeys)
+//		}
 		if let packageSpec = projectSpec {
 			var extraKeys = [String:Any]()
 			

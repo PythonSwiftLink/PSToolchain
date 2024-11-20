@@ -37,6 +37,8 @@ extension PSToolchain.Project.Kivy {
 		func run() async throws {
 			//			try await GithubAPI(owner: "PythonSwiftLink", repo: "KivyCore").handleReleases()
 			//			return
+			
+			
 			let projDir = (Path.current + name)
 			if forced, projDir.exists {
 				try? projDir.delete()
@@ -50,7 +52,8 @@ extension PSToolchain.Project.Kivy {
 				requirements: requirements,
 				//projectSpec: swift_packages == nil ? nil : .init(swift_packages!),
 				projectSpec: spec,
-				workingDir: projDir
+				workingDir: projDir,
+				app_path: .app_path!
 			)
 			
 			try await proj.createStructure()
