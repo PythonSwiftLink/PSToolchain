@@ -40,7 +40,7 @@ struct PSToolchain: AsyncParsableCommand {
 
 import Foundation
 
-extension PathKit.Path: ExpressibleByArgument {
+extension PathKit.Path: @retroactive ExpressibleByArgument {
 	public init?(argument: String) {
 		self.init(argument)
 	}

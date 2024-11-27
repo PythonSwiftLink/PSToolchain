@@ -17,7 +17,7 @@ let package = Package(
 		.package(url: "https://github.com/yonaskolb/XcodeGen.git", from: "2.42.0"),
 		.package(url: "https://github.com/1024jp/GzipSwift", from: .init(6, 0, 0)),
 		.package(url: "https://github.com/marmelroy/Zip", from: .init(2, 1, 0)),
-		.package(url: "https://github.com/apple/swift-syntax.git", .upToNextMajor(from: .init(509, 0, 0))),
+		.package(url: "https://github.com/swiftlang/swift-syntax.git", .upToNextMajor(from: .init(509, 0, 0))),
 		.package(url: "https://github.com/jpsim/Yams.git", .upToNextMajor(from: "5.0.6")),
 		
 		.package(path: "../SwiftPackageGen")
