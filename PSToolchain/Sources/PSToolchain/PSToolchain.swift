@@ -38,6 +38,13 @@ struct PSToolchain: AsyncParsableCommand {
 	
 }
 
+extension PSToolchain {
+    struct Hostpython: AsyncParsableCommand {
+        
+    }
+}
+
+
 import Foundation
 
 extension PathKit.Path: @retroactive ExpressibleByArgument {

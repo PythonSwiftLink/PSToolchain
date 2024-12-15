@@ -64,3 +64,4 @@ fastlane/test_output
 .build
 *.resolved
 .swiftpm
+/PSToolchain.egg-info
