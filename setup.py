@@ -15,7 +15,7 @@ class SPWExtension(Extension):
 class BuildSwiftPackage(build_ext):
     
     def build_extension(self, ext: SPWExtension):
-        print("QWERTY", ext.sources, sys.prefix)
+        print("Building PSToolchain:", ext.sources)
         cwd = ext.sources
         
         # build swift executable
