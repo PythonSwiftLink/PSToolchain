@@ -66,7 +66,7 @@ class BuildSwiftPackage(build_ext):
     def build_extension(self, ext: SwiftPackageExtension):
         name = ext.name
         src = ext.source
-        print("Building", name, ext.swift_build_args)
+        print("Building", name, ext.swift_build_args, os.getcwd())
         print(platform.machine())
         subprocess.run(ext.swift_build_args)
         #exit(0)
