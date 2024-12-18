@@ -67,3 +67,4 @@ fastlane/test_output
 /PSToolchain.egg-info
 /build
 /dist
+pstoolchain/tools/PSProjectCLI
