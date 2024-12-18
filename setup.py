@@ -64,8 +64,12 @@ class SwiftPackageExtension(Extension):
 def remove_file(file: str):
     if exists(file):
         os.remove(file)
-        
 
+
+
+##############################################################################
+##############################################################################
+##############################################################################
         
 class PSProjectCLI(SwiftPackageExtension):
     
@@ -83,7 +87,9 @@ class AstExporter(SwiftPackageExtension):
     def __init__(self):
         super().__init__(self.__class__.__name__)
         
-
+##############################################################################
+##############################################################################
+##############################################################################
 
 class BuildSwiftPackage(build_ext):
     
@@ -119,7 +125,13 @@ class BuildSwiftPackage(build_ext):
                 join(ext.release_folder, bundle),
                 join(tools_path, bundle)
             )
-            
+
+##############################################################################
+##############################################################################
+##############################################################################            
+requires = [
+    "sh"
+]
 
 setup(
     name="pstoolchain",
@@ -128,8 +140,9 @@ setup(
         "console_scripts": ["pstoolchain=pstoolchain.toolchain:main"]
     },
     packages=["pstoolchain", "pstoolchain.tools"],
+    requires=requires,
     ext_modules=[
             PSProjectCLI()
         ],
-    cmdclass={"build_ext": BuildSwiftPackage}
+    cmdclass={"build_ext": BuildSwiftPackage},
 )
