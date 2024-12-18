@@ -99,8 +99,9 @@ class BuildSwiftPackage(build_ext):
             "pstoolchain",
             "tools"
         )
-        log_info("list current folder after build\n", sh.ls(current_dir))
-        log_info("list build folder after build\n", sh.ls(join(current_dir, "build")))
+        log_info("list <current folder> after build\n", sh.ls(current_dir))
+        log_info("list <build folder> after build\n", sh.ls(join(current_dir, "build")))
+        log_info("list <lib.macosx-10.9-universal2-cpython-311 folder> after build\n", sh.ls(join(current_dir, "build", "lib.macosx-10.9-universal2-cpython-311")))
         bin = join(tools_path, basename(product))
         #remove_file(bin)
         os.makedirs(tools_path, exist_ok=True)
