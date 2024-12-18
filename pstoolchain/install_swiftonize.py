@@ -54,7 +54,7 @@ class InstallSwiftonize:
             
             #self.list_dir(build_dir)
             #self.list_dir(arch_dir)
-            #self.list_dir(release_dir)
+            self.list_dir(release_dir)
             
             binary = join(release_dir, package)
             if machine == "x86_64":
