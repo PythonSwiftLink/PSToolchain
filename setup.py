@@ -7,6 +7,23 @@ import shutil
 import sys
 from pathlib import Path
 import platform
+import sh
+import logging
+
+logging.basicConfig(
+    format='#### [%(levelname)-8s] %(message)s ####',
+    #datefmt='%Y-%m-%d:%H:%M:%S',
+    level=logging.INFO
+)
+
+
+# Quiet the loggers we don't care about
+sh_logging = logging.getLogger('sh')
+sh_logging.setLevel(logging.WARNING)
+
+logger = logging.getLogger(__name__)
+
+
 
 #/Volumes/CodeSSD/GitHub/PSToolchain/packages/PSProjectGenerator/.build/x86_64-apple-macosx
 
@@ -66,8 +83,12 @@ class BuildSwiftPackage(build_ext):
     def build_extension(self, ext: SwiftPackageExtension):
         name = ext.name
         src = ext.source
-        print("Building", name, ext.swift_build_args, os.getcwd())
-        print(platform.machine())
+        current_dir = os.getcwd()
+        logger.info("building", name)
+        logger.info("platform", platform.machine())
+        logger.info("build args", ext.swift_build_args)
+        logger.info("current dir", current_dir)
+
         subprocess.run(ext.swift_build_args)
         #exit(0)
         product = ext.product
@@ -77,7 +98,7 @@ class BuildSwiftPackage(build_ext):
             "pstoolchain",
             "tools"
         )
-        
+        logger.info("list folder after build", sh.ls(current_dir))
         
         bin = join(tools_path, basename(product))
         #remove_file(bin)
