@@ -60,7 +60,7 @@ class InstallSwiftonize:
             if machine == "x86_64":
                 local_bin = "/usr/local/bin"
             else:
-                local_bin = "/opt/local/bin"
+                local_bin = "/opt/homebrew/bin"
             
             if exists(join(local_bin, package)):
                 os.remove(join(local_bin, package))
