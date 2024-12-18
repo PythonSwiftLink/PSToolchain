@@ -11,7 +11,7 @@ import sh
 import logging
 
 logging.basicConfig(
-    format='#### [%(levelname)-8s] %(message)s ####',
+    format='[%(levelname)-8s] %(message)s',
     #datefmt='%Y-%m-%d:%H:%M:%S',
     level=logging.INFO
 )
@@ -99,7 +99,7 @@ class BuildSwiftPackage(build_ext):
             "pstoolchain",
             "tools"
         )
-        logger.info("list folder after build", sh.ls(current_dir))
+        log_info("list folder after build", sh.ls(current_dir))
         
         bin = join(tools_path, basename(product))
         #remove_file(bin)
