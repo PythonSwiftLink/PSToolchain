@@ -93,7 +93,7 @@ setup(
     },
     packages=["pstoolchain", "pstoolchain.tools"],
     package_data={
-        "tools": ["PSProjectCLI"]
+        "pstoolchain.tools": ["PSProjectCLI"]
     },
     #include_package_data=True,
     ext_modules=[
