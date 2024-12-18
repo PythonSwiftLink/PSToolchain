@@ -9,7 +9,7 @@ import Foundation
 import ArgumentParser
 
 
-public extension PythonSwiftProjectCLI {
+extension PythonSwiftProjectCLI {
 	
 	struct SwiftUI: AsyncParsableCommand {
 		
@@ -20,6 +20,6 @@ public extension PythonSwiftProjectCLI {
 
 
 
-public extension PythonSwiftProjectCLI.SwiftUI {
+extension PythonSwiftProjectCLI.SwiftUI {
 	
 }

@@ -6,7 +6,7 @@
 
 import ArgumentParser
 
-//@main
+@main
 struct PythonSwiftProjectCLI: AsyncParsableCommand {
 	
 	static var configuration: CommandConfiguration = .init(

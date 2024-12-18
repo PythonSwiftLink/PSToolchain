@@ -15,7 +15,7 @@ extension PathKit.Path: ExpressibleByArgument {
 	}
 }
 
-public extension PythonSwiftProjectCLI {
+extension PythonSwiftProjectCLI {
 	
 	
 	

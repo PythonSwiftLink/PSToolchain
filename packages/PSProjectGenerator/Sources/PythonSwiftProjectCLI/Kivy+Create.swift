@@ -83,9 +83,9 @@ extension PythonSwiftProjectCLI.Kivy {
 	struct Create: AsyncParsableCommand {
 		@Argument var name: String
 		
-		@Option(name: .short) var python_src: String?
+		@Option(name: .short) var python_src: Path?
 		
-		@Option(name: .short) var requirements: String?
+		@Option(name: .short) var requirements: Path?
 		
 		@Option(name: .short) var swift_packages: String?
 		
@@ -107,7 +107,8 @@ extension PythonSwiftProjectCLI.Kivy {
 				requirements: requirements,
 				//projectSpec: swift_packages == nil ? nil : .init(swift_packages!),
 				projectSpec: projectSpec,
-				workingDir: projDir
+                workingDir: projDir,
+                app_path: .current
 			)
 			
 			try await proj.createStructure()

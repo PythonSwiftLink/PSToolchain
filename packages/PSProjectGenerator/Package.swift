@@ -7,7 +7,7 @@ let package = Package(
     name: "PythonSwiftProject",
 	platforms: [.macOS(.v13)],
 	products: [
-		//.executable(name: "PSProjectCLI", targets: ["PythonSwiftProjectCLI"]),
+		.executable(name: "PSProjectCLI", targets: ["PythonSwiftProjectCLI"]),
 		//.library(name: "PSProjectCLI", targets: ["PythonSwiftProjectCLI"]),
 		.library(name: "PSProjectGen", targets: ["PSProjectGen"]),
 	],
@@ -50,26 +50,26 @@ let package = Package(
 			]
 			
 			),
-		.executableTarget(
-			name: "PythonSwiftProjectGUI",
-			dependencies: [
-				"PSProjectGen",
-				.product(name: "Gzip", package: "GzipSwift"),
-				.product(name: "Zip", package: "Zip")
-			]
-		),
-//        .target(
-//            name: "PythonSwiftProjectCLI",
-//            dependencies: [
-//                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-////				.product(name: "XcodeGenKit", package: "XcodeGen"),
-////				.product(name: "ProjectSpec", package: "XcodeGen"),
+//		.executableTarget(
+//			name: "PythonSwiftProjectGUI",
+//			dependencies: [
 //				"PSProjectGen",
 //				.product(name: "Gzip", package: "GzipSwift"),
-//				.product(name: "Zip", package: "Zip"),
-//				.product(name: "GeneratePackage", package: "SwiftPackageGen"),
-//				.product(name: "RecipeBuilder", package: "SwiftPackageGen")
-//            ]
-//        ),
+//				.product(name: "Zip", package: "Zip")
+//			]
+//		),
+        .executableTarget(
+            name: "PythonSwiftProjectCLI",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+//				.product(name: "XcodeGenKit", package: "XcodeGen"),
+//				.product(name: "ProjectSpec", package: "XcodeGen"),
+				"PSProjectGen",
+				.product(name: "Gzip", package: "GzipSwift"),
+				.product(name: "Zip", package: "Zip"),
+				.product(name: "GeneratePackage", package: "SwiftPackageGen"),
+				.product(name: "RecipeBuilder", package: "SwiftPackageGen")
+            ]
+        ),
     ]
 )
