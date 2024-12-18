@@ -81,6 +81,33 @@ class BuildSwiftPackage(build_ext):
         package = '.'.join(modpath[:-1])
         return build_py.get_package_dir(package)
     
+    def _get_ext_fullpath(self, ext_name):
+        """Returns the path of the filename for a given extension.
+
+        The file is located in `build_lib` or directly in the package
+        (inplace option).
+        """
+        fullname = self.get_ext_fullname(ext_name)
+        modpath = fullname.split('.')
+        filename = self.get_ext_filename(modpath[-1])
+
+        if not self.inplace:
+            # no further work needed
+            # returning :
+            #   build_dir/package/path/filename
+            filename = os.path.join(*modpath[:-1] + [filename])
+            return os.path.join(self.build_lib, filename)
+
+        # the inplace option requires to find the package directory
+        # using the build_py command for that
+        package = '.'.join(modpath[0:-1])
+        build_py = self.get_finalized_command('build_py')
+        package_dir = os.path.abspath(build_py.get_package_dir(package))
+
+        # returning
+        #   package_dir/filename
+        return os.path.join(package_dir, filename)
+    
     def build_extension(self, ext: SwiftPackageExtension):
         name = ext.name
         src = ext.source
@@ -102,6 +129,8 @@ class BuildSwiftPackage(build_ext):
         log_info("list <current folder> after build\n", sh.ls(current_dir))
         log_info("list <build folder> after build\n", sh.ls(join(current_dir, "build")))
         log_info("list <lib.macosx-10.9-universal2-cpython-311 folder> after build\n", sh.ls(join(current_dir, "build", "lib.macosx-10.9-universal2-cpython-311")))
+        
+        log_info("self.build_lib", self.build_lib)
         bin = join(tools_path, basename(product))
         #remove_file(bin)
         os.makedirs(tools_path, exist_ok=True)
