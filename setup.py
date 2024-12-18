@@ -140,7 +140,7 @@ setup(
         "console_scripts": ["pstoolchain=pstoolchain.toolchain:main"]
     },
     packages=["pstoolchain", "pstoolchain.tools"],
-    requires=requires,
+    install_requires=requires,
     ext_modules=[
             PSProjectCLI()
         ],
