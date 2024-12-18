@@ -74,7 +74,7 @@ class BuildSwiftPackage(build_ext):
         tools_path = ext.tools_path
         tools_path = join(
             os.path.dirname(self.get_ext_fullpath("_")),
-            ext.__class__.__name__,
+            "pstoolchain",
             "tools"
         )
         
