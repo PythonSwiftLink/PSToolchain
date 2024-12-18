@@ -112,32 +112,29 @@ class BuildSwiftPackage(build_ext):
         name = ext.name
         src = ext.source
         current_dir = os.getcwd()
+        toolchain_build_dir = join(
+            self.build_lib,
+            "pstoolchain",
+        )
         log_info("building", name)
         log_info("platform", platform.machine())
         log_info("build args", *ext.swift_build_args)
         log_info("current dir", current_dir)
-        log_info("list <build_lib folder> before build\n", sh.ls(self.build_lib))
+        log_info("list <toolchain_build_dir folder> before build\n", sh.ls(toolchain_build_dir))
         subprocess.run(ext.swift_build_args)
         #exit(0)
         
         product = ext.product
-        tools_path = ext.tools_path
         tools_path = join(
-            self.build_lib,
-            "pstoolchain",
+            toolchain_build_dir,
             "tools"
         )
-        log_info("list <current folder> after build\n", sh.ls(current_dir))
-        log_info("list <build folder> after build\n", sh.ls(join(current_dir, "build")))
-        log_info("list <lib.macosx-10.9-universal2-cpython-311 folder> after build\n", sh.ls(join(current_dir, "build", "lib.macosx-10.9-universal2-cpython-311")))
-        
-        log_info("self.build_lib", self.build_lib)
-        bin = join(tools_path, basename(product))
+        #bin = join(tools_path, basename(product))
         #remove_file(bin)
         os.makedirs(tools_path, exist_ok=True)
         shutil.copy(
             product,
-            bin
+            tools_path
         )
 setup(
     name="pstoolchain",
