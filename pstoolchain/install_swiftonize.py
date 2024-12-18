@@ -52,9 +52,9 @@ class InstallSwiftonize:
             arch_dir = join(build_dir, "x86_64-apple-macosx")
             release_dir = join(build_dir, "release")
             
-            self.list_dir(build_dir)
-            self.list_dir(arch_dir)
-            self.list_dir(release_dir)
+            #self.list_dir(build_dir)
+            #self.list_dir(arch_dir)
+            #self.list_dir(release_dir)
             
             binary = join(release_dir, package)
             if machine == "x86_64":
