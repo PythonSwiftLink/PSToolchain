@@ -55,6 +55,14 @@ class AstExporter(SwiftPackageExtension):
 
 class BuildSwiftPackage(build_ext):
     
+    def get_src_dir(self, ext) -> str:
+        build_py = self.get_finalized_command('build_py')
+        fullname = self.get_ext_fullname(ext.name)
+        filename = self.get_ext_filename(fullname)
+        modpath = fullname.split('.')
+        package = '.'.join(modpath[:-1])
+        return build_py.get_package_dir(package)
+    
     def build_extension(self, ext: SwiftPackageExtension):
         name = ext.name
         src = ext.source
@@ -64,8 +72,15 @@ class BuildSwiftPackage(build_ext):
         #exit(0)
         product = ext.product
         tools_path = ext.tools_path
+        tools_path = join(
+            os.path.dirname(self.get_ext_fullpath("_")),
+            "tools"
+        )
+        
+        
         bin = join(tools_path, basename(product))
-        remove_file(bin)
+        #remove_file(bin)
+        os.makedirs(tools_path, exist_ok=True)
         shutil.copy(
             product,
             bin
