@@ -23,7 +23,7 @@ sh_logging.setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
-def log_info(message: str, args: list):
+def log_info(message: str, *args: list):
     logger.info(f"{message} {' '.join(args)}")
 
 #/Volumes/CodeSSD/GitHub/PSToolchain/packages/PSProjectGenerator/.build/x86_64-apple-macosx
