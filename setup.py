@@ -93,9 +93,9 @@ setup(
         "console_scripts": ["pstoolchain=pstoolchain.toolchain:main"]
     },
     packages=["pstoolchain", "pstoolchain.tools"],
-    package_data={
-        "pstoolchain.tools": ["PSProjectCLI"]
-    },
+    # package_data={
+    #     "pstoolchain.tools": ["PSProjectCLI"]
+    # },
     #include_package_data=True,
     ext_modules=[
             PSProjectCLI()
