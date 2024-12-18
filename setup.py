@@ -46,11 +46,17 @@ class SwiftPackageExtension(Extension):
     
     @property
     def product(self) -> str:
-        return join(self.source, ".build", self.release_folder_name, self.__class__.__name__)
+        return join(self.release_folder, self.__class__.__name__)
+    
+    @property
+    def release_folder(self) -> str:
+        return join(self.source, ".build", self.release_folder_name)
     
     @property
     def tools_path(self) -> str:
         return os.fspath(Path("pstoolchain/tools").resolve())
+    
+    bundles = []
     
     def __init__(self, name: str):
         super().__init__(name, [os.fspath(Path(name).resolve())])
@@ -62,6 +68,10 @@ def remove_file(file: str):
 
         
 class PSProjectCLI(SwiftPackageExtension):
+    
+    bundles = [
+        "PythonSwiftProject_PSProjectGen.bundle"
+    ]
     
     def __init__(self):
         super().__init__("PSProjectGenerator")
@@ -102,6 +112,8 @@ class BuildSwiftPackage(build_ext):
             product,
             tools_path
         )
+        for bundle in ext.bundles:
+            shutil.copytree(join(tools_path))
 setup(
     name="pstoolchain",
     
