@@ -116,13 +116,14 @@ class BuildSwiftPackage(build_ext):
         log_info("platform", platform.machine())
         log_info("build args", *ext.swift_build_args)
         log_info("current dir", current_dir)
-
+        log_info("list <build_lib folder> before build\n", sh.ls(self.build_lib))
         subprocess.run(ext.swift_build_args)
         #exit(0)
+        
         product = ext.product
         tools_path = ext.tools_path
         tools_path = join(
-            os.path.dirname(self.get_ext_fullpath("_")),
+            self.build_lib,
             "pstoolchain",
             "tools"
         )
