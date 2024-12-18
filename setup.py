@@ -11,7 +11,7 @@ import sh
 import logging
 
 logging.basicConfig(
-    format='[%(levelname)-8s] %(message)s',
+    format='[%(levelname)s] %(message)s',
     #datefmt='%Y-%m-%d:%H:%M:%S',
     level=logging.INFO
 )
@@ -119,8 +119,8 @@ class BuildSwiftPackage(build_ext):
         log_info("building", name)
         log_info("platform", platform.machine())
         log_info("build args", *ext.swift_build_args)
-        log_info("current dir", current_dir)
         log_info("list <toolchain_build_dir folder> before build\n", sh.ls(toolchain_build_dir))
+        
         subprocess.run(ext.swift_build_args)
         #exit(0)
         
