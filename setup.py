@@ -82,6 +82,8 @@ class AstExporter(SwiftPackageExtension):
     
     def __init__(self):
         super().__init__(self.__class__.__name__)
+        
+
 
 class BuildSwiftPackage(build_ext):
     
@@ -113,7 +115,12 @@ class BuildSwiftPackage(build_ext):
             tools_path
         )
         for bundle in ext.bundles:
-            shutil.copytree(join(tools_path))
+            shutil.copytree(
+                join(ext.release_folder, bundle),
+                join(tools_path, bundle)
+            )
+            
+
 setup(
     name="pstoolchain",
     
