@@ -23,7 +23,8 @@ sh_logging.setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
-
+def log_info(message: str, args: list):
+    logger.info(f"{message} {" ".join(args)}")
 
 #/Volumes/CodeSSD/GitHub/PSToolchain/packages/PSProjectGenerator/.build/x86_64-apple-macosx
 
@@ -84,10 +85,10 @@ class BuildSwiftPackage(build_ext):
         name = ext.name
         src = ext.source
         current_dir = os.getcwd()
-        logger.info("building", name)
-        logger.info("platform", platform.machine())
-        logger.info("build args", ext.swift_build_args)
-        logger.info("current dir", current_dir)
+        log_info("building", name)
+        log_info("platform", platform.machine())
+        log_info("build args", ext.swift_build_args)
+        log_info("current dir", current_dir)
 
         subprocess.run(ext.swift_build_args)
         #exit(0)
