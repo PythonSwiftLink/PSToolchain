@@ -30,8 +30,12 @@ def log_info(message: str, *args):
 
 class SwiftPackageExtension(Extension):
     
+    _needs_stub = False
+    optional = True
+    
     @property
     def swift_build_args(self) -> list[str]:
+        
         return [
             "swift", "build",
             "--package-path", self.source,
@@ -93,8 +97,38 @@ class AstExporter(SwiftPackageExtension):
 
 class BuildSwiftPackage(build_ext):
     
+    def copy_extensions_to_source(self):
+        build_py = self.get_finalized_command('build_py')
+        for ext in self.extensions:
+            inplace_file, regular_file = self._get_inplace_equivalent(build_py, ext)
+
+            # Always copy, even if source is older than destination, to ensure
+            # that the right extensions for the current Python/platform are
+            # used.
+            #assert ext.optional
+            if os.path.exists(regular_file) and not ext.optional:
+                self.copy_file(regular_file, inplace_file, level=self.verbose)
+
+            if ext._needs_stub:
+                inplace_stub = self._get_equivalent_stub(ext, inplace_file)
+                self._write_stub_file(inplace_stub, ext, compile=True)
+                # Always compile stub and remove the original (leave the cache behind)
+                # (this behaviour was observed in previous iterations of the code)
+    # def copy_extensions_to_source(self):
+    #     build_py = self.get_finalized_command('build_py')
+    #     for ext in self.extensions:
+    #         inplace_file, regular_file = self._get_inplace_equivalent(build_py, ext)
+
+    #         # Always copy, even if source is older than destination, to ensure
+    #         # that the right extensions for the current Python/platform are
+    #         # used.
+    #         if os.path.exists(regular_file) or not ext.optional:
+    #             #self.copy_file(regular_file, inplace_file, level=self.verbose)
+    #             pass
+    
     def build_extension(self, ext: SwiftPackageExtension):
         name = ext.name
+        print(self.build_lib, os.getcwd())
         
         toolchain_build_dir = join(
             self.build_lib,
@@ -104,10 +138,11 @@ class BuildSwiftPackage(build_ext):
         log_info("building", name)
         log_info("platform", platform.machine())
         log_info("build args", *ext.swift_build_args)
-        log_info("list <toolchain_build_dir folder> before build\n", sh.ls(toolchain_build_dir))
+        #log_info("list <toolchain_build_dir folder> before build\n", sh.ls(self.build_lib))
         
         subprocess.run(ext.swift_build_args)
-        
+        log_info("list build_lib dir\n", sh.ls(self.build_lib))
+        #exit()
         product = ext.product
         tools_path = join(
             toolchain_build_dir,
@@ -115,7 +150,9 @@ class BuildSwiftPackage(build_ext):
         )
         #bin = join(tools_path, basename(product))
         #remove_file(bin)
+        #assert exists(join(self.build_temp, "src"))
         os.makedirs(tools_path, exist_ok=True)
+        #exit()
         shutil.copy(
             product,
             tools_path
@@ -123,24 +160,17 @@ class BuildSwiftPackage(build_ext):
         for bundle in ext.bundles:
             shutil.copytree(
                 join(ext.release_folder, bundle),
-                join(tools_path, bundle)
+                join(tools_path, bundle),
+                dirs_exist_ok=True
             )
 
 ##############################################################################
 ##############################################################################
-##############################################################################            
-requires = [
-    "sh"
-]
+##############################################################################
 
 setup(
     name="pstoolchain",
-    
-    entry_points={
-        "console_scripts": ["pstoolchain=pstoolchain.toolchain:main"]
-    },
-    packages=["pstoolchain", "pstoolchain.tools"],
-    install_requires=requires,
+    #packages=["src.pstoolchain"],
     ext_modules=[
             PSProjectCLI()
         ],

@@ -4,9 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build setup.py",
+            "label": "uv run",
             "type": "shell",
-            "command": "/Users/codebuilder/.pyenv/versions/3.11.6/bin/python setup.py build",
+            "command": "uv run --no-editable -v --reinstall pstoolchain",
             "problemMatcher": [],
             "group": {
                 "kind": "build",

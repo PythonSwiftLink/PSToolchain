@@ -68,3 +68,17 @@ fastlane/test_output
 /build
 /dist
 pstoolchain/tools/PSProjectCLI
+
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+*.pyc
+uv.lock

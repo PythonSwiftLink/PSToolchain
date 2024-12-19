@@ -1,2 +1,31 @@
+[project]
+name = "pstoolchain"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "PythonSwiftLink", email = "pythonswiftlink@gmail.com" }
+]
+requires-python = ">=3.11.6"
+
+dependencies = [
+    "sh>=2.1.0",
+]
+
+[project.scripts]
+pstoolchain = "pstoolchain:main"
+
+# [tool.setuptools.package-data]
+# pstoolchain = ["pstoolchain"]
+
 [build-system]
-requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.0", "sh"]
+requires = [
+    "setuptools>=61",
+    "setuptools-scm",
+    "wheel",
+    "sh>=2.1.0",
+]
+build-backend = "setuptools.build_meta"
+# packages = [
+#     "src.pstoolchain"
+# ]

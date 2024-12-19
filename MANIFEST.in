@@ -1,2 +1,0 @@
-recursive-include pstoolchain *.py
-recursive-include pstoolchain/tools *

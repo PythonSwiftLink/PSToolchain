@@ -48,6 +48,8 @@ Available commands:
 #### Swiftonize ####
     install_swiftonize      install swiftonize to /usr/local/bin
     
+#### Tools / Plugins ####
+    
 """)
         parser.add_argument("command", help="Command to run")
         args = parser.parse_args(sys.argv[1:2])
