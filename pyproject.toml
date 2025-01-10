@@ -15,8 +15,7 @@ dependencies = [
 [project.scripts]
 pstoolchain = "pstoolchain:main"
 
-# [tool.setuptools.package-data]
-# pstoolchain = ["pstoolchain"]
+
 
 [build-system]
 requires = [
@@ -26,6 +25,3 @@ requires = [
     "sh>=2.1.0",
 ]
 build-backend = "setuptools.build_meta"
-# packages = [
-#     "src.pstoolchain"
-# ]

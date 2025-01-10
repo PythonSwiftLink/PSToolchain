@@ -90,6 +90,8 @@ extension PythonSwiftProjectCLI.Kivy {
 		@Option(name: .short) var swift_packages: String?
 		
 		@Flag(name: .short) var forced: Bool = false
+        
+        @Flag() var experimental: Bool = false
 		
 		func run() async throws {
 //			try await GithubAPI(owner: "PythonSwiftLink", repo: "KivyCore").handleReleases()
@@ -108,7 +110,8 @@ extension PythonSwiftProjectCLI.Kivy {
 				//projectSpec: swift_packages == nil ? nil : .init(swift_packages!),
 				projectSpec: projectSpec,
                 workingDir: projDir,
-                app_path: .current
+                app_path: .init(ProcessInfo.processInfo.arguments.first!).parent(),
+                experimental: experimental
 			)
 			
 			try await proj.createStructure()

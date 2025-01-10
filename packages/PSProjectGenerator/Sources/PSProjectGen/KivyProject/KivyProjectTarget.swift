@@ -30,12 +30,13 @@ public class KivyProjectTarget: PSProjTargetProtocol {
 	let resourcesPath: Path
 	let pythonLibPath: Path
 	let app_path: Path
+    let experimental: Bool
 	
 	weak var project: KivyProject?
 	
 	
 	
-	public init(name: String, py_src: Path, dist_lib: Path, projectSpec: Path?, workingDir: Path, app_path: Path) async throws {
+    public init(name: String, py_src: Path, dist_lib: Path, projectSpec: Path?, workingDir: Path, app_path: Path, experimental: Bool) async throws {
 		self.name = name
 		self.workingDir = workingDir
 		self.app_path = app_path
@@ -45,7 +46,7 @@ public class KivyProjectTarget: PSProjTargetProtocol {
 		self.pythonProject = py_src
 		self.dist_lib = dist_lib
 		self.projectSpec = projectSpec
-		print(dist_lib)
+        self.experimental = experimental
 	}
 	public func build() async throws {
 		
@@ -55,8 +56,7 @@ public class KivyProjectTarget: PSProjTargetProtocol {
 		var configDict: [String: Any] = [
 			"LIBRARY_SEARCH_PATHS": [
 				"$(inherited)",
-				dist_lib
-			],
+            ] + ( experimental ? [] : [dist_lib]),
 			"SWIFT_VERSION": "5.0",
 			"OTHER_LDFLAGS": "-all_load",
 			"ENABLE_BITCODE": false
@@ -70,8 +70,8 @@ public class KivyProjectTarget: PSProjTargetProtocol {
 		}
 		
 		return .init(configSettings: [
-			"debug": configSettings,
-			"release": configSettings
+			"Debug": configSettings,
+			"Release": configSettings
 		])
 	}
 	

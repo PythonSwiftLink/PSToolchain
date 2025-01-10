@@ -65,7 +65,7 @@ public class PSProjectGen {
 	
 	
 	var configs: [Config] {
-		[.init(name: "debug", type: .debug),.init(name: "release", type: .release)]
+		[.init(name: "Debug", type: .debug),.init(name: "Release", type: .release)]
 	}
 	//func targets() async throws -> [Target] {  [ try await KivyProject(name: name, py_src: py_src).target() ] }
 	var schemes: [Scheme] {

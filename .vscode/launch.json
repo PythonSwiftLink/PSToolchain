@@ -1,1 +1,22 @@
-{}
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:PSToolchain}/packages/PSProjectGenerator",
+            "name": "Debug PSProjectCLI (packages/PSProjectGenerator)",
+            "program": "${workspaceFolder:PSToolchain}/packages/PSProjectGenerator/.build/debug/PSProjectCLI",
+            "preLaunchTask": "swift: Build Debug PSProjectCLI (packages/PSProjectGenerator)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:PSToolchain}/packages/PSProjectGenerator",
+            "name": "Release PSProjectCLI (packages/PSProjectGenerator)",
+            "program": "${workspaceFolder:PSToolchain}/packages/PSProjectGenerator/.build/release/PSProjectCLI",
+            "preLaunchTask": "swift: Build Release PSProjectCLI (packages/PSProjectGenerator)"
+        }
+    ]
+}

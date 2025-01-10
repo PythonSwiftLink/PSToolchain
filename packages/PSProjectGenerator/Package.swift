@@ -46,7 +46,8 @@ let package = Package(
 			],
 			resources: [
 				.copy("downloads.yml"),
-				.copy("project_plist_keys.yml")
+				.copy("project_plist_keys.yml"),
+                .copy("kivy_requirements.txt")
 			]
 			
 			),
