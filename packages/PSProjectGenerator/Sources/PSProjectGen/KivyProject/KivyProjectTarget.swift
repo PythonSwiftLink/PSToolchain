@@ -70,8 +70,8 @@ public class KivyProjectTarget: PSProjTargetProtocol {
 		}
 		
 		return .init(configSettings: [
-			"Debug": configSettings,
-			"Release": configSettings
+			"debug": configSettings,
+			"release": configSettings
 		])
 	}
 	

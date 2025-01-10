@@ -226,7 +226,7 @@ public class KivyProject: PSProjectProtocol {
 	}
 	
 	public func configs() async throws -> [ProjectSpec.Config] {
-		[.init(name: "Debug", type: .debug),.init(name: "Release", type: .release)]
+		[.init(name: "debug", type: .debug),.init(name: "release", type: .release)]
 	}
 	
 	public func schemes() async throws -> [ProjectSpec.Scheme] {
