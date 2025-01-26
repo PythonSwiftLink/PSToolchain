@@ -96,6 +96,20 @@ extension PythonSwiftProjectCLI.Kivy {
 		func run() async throws {
 //			try await GithubAPI(owner: "PythonSwiftLink", repo: "KivyCore").handleReleases()
 //			return
+            
+            var src: Path? = python_src
+            
+            // check if relative and create full path to it..
+            if let python_src {
+                if python_src.isRelative {
+                    src = Path.current + python_src.lastComponent
+                }
+            }
+            // check if parh actually exist else do fatalError
+            if let src, !src.exists {
+                fatalError("\(src) don't exist")
+            }
+            
 			let projDir = (Path.current + name)
 			if forced, projDir.exists {
 				try? projDir.delete()
@@ -105,8 +119,8 @@ extension PythonSwiftProjectCLI.Kivy {
 			let projectSpec: Path? = if let swift_packages = swift_packages {.init(swift_packages)} else { nil }
 			let proj = try await KivyProject(
 				name: name,
-				py_src: python_src,
-				requirements: requirements,
+				py_src: src,
+                requirements: requirements,
 				//projectSpec: swift_packages == nil ? nil : .init(swift_packages!),
 				projectSpec: projectSpec,
                 workingDir: projDir,
